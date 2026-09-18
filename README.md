@@ -13,6 +13,8 @@ Horse race game in C++. Each horse has a 50% chance to move one space forward ea
 Pseudocode:
 
 ```text
+constant NUM_HORSES is the current number of horses
+constant TRACK_LENGTH is the amount of spaces a horse needs to move to finish
 
 function advance(horseNum, horses):
     create random device rd
