@@ -43,28 +43,48 @@ bool isWinner(int horseNum, int* horses) {
 
 int main() {
     int horses[NUM_HORSES] = {0, 0, 0, 0, 0};
-
     bool winner = false;
 
     while (!winner) {
+        int winners[NUM_HORSES];
+        int numWinners = 0;
+
         for (int i = 0; i < NUM_HORSES; i++) {
             advance(i, horses);
         } //end for
 
         for (int i = 0; i < NUM_HORSES; i++) {
             printLane(i, horses);
+        } //end for
 
+        for (int i = 0; i < NUM_HORSES; i++) {
             if (isWinner(i, horses)) {
-                std::cout << "Horse " << i << " WINS!!!" << std::endl;
-                winner = true;
+                winners[numWinners] = i;
+                numWinners++;
             } //end if
         } //end for
+        
+        //protects against multiple horses winning in the same run
+        if (numWinners == 1) {
+            std::cout << "Horse " << winners[0] << " WINS!!!" << std::endl;
+            winner = true;
+        } //end if
+        else if (numWinners > 1) {
+            //creates a tool for randomization
+            std::random_device rd;
+            std::uniform_int_distribution<int> dist(0, numWinners - 1);
+
+            int winningHorse = winners[dist(rd)];
+
+            std::cout << "Horse " << winningHorse << " WINS!!!" << std::endl;
+            winner = true;
+        } //end else if
 
         if (!winner) {
             std::cout << "Press enter for another turn";
             std::cin.get();
         } //end if
-    } //end for
+    } //end while
 
     return 0;
 } // end main
