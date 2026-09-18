@@ -43,7 +43,6 @@ bool isWinner(int horseNum, int* horses) {
 
 int main() {
     int horses[NUM_HORSES] = {0, 0, 0, 0, 0};
-
     bool winner = false;
 
     while (!winner) {
@@ -70,7 +69,6 @@ int main() {
             std::cout << "Horse " << winners[0] << " WINS!!!" << std::endl;
             winner = true;
         } //end if
-
         else if (numWinners > 1) {
             //creates a tool for randomization
             std::random_device rd;
@@ -80,7 +78,7 @@ int main() {
 
             std::cout << "Horse " << winningHorse << " WINS!!!" << std::endl;
             winner = true;
-        } //end if
+        } //end else if
 
         if (!winner) {
             std::cout << "Press enter for another turn";
