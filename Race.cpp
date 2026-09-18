@@ -5,6 +5,7 @@ const int NUM_HORSES = 5;
 const int TRACK_LENGTH = 15;
 
 void advance(int horseNum, int* horses) {
+    //creates a tool for randomization
     std::random_device rd;
     std::uniform_int_distribution<int> dist(0, 1);
 
@@ -64,12 +65,14 @@ int main() {
             } //end if
         } //end for
         
+        //protects against multiple horses winning in the same run
         if (numWinners == 1) {
             std::cout << "Horse " << winners[0] << " WINS!!!" << std::endl;
             winner = true;
         } //end if
 
         else if (numWinners > 1) {
+            //creates a tool for randomization
             std::random_device rd;
             std::uniform_int_distribution<int> dist(0, numWinners - 1);
 
