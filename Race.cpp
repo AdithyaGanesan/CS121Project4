@@ -46,6 +46,8 @@ int main() {
     bool winner = false;
 
     while (!winner) {
+        int winners[NUM_HORSES];
+        int numWinners = 0;
 
         for (int i = 0; i < NUM_HORSES; i++) {
             advance(i, horses);
@@ -53,12 +55,29 @@ int main() {
 
         for (int i = 0; i < NUM_HORSES; i++) {
             printLane(i, horses);
+        } //end for
 
+        for (int i = 0; i < NUM_HORSES; i++) {
             if (isWinner(i, horses)) {
-                std::cout << "Horse " << i << " WINS!!!" << std::endl;
-                winner = true;
+                winners[numWinners] = i;
+                numWinners++;
             } //end if
         } //end for
+        
+        if (numWinners == 1) {
+            std::cout << "Horse " << winners[0] << " WINS!!!" << std::endl;
+            winner = true;
+        } //end if
+
+        else if (numWinners > 1) {
+            std::random_device rd;
+            std::uniform_int_distribution<int> dist(0, numWinners - 1);
+
+            int winningHorse = winners[dist(rd)];
+
+            std::cout << "Horse " << winningHorse << " WINS!!!" << std::endl;
+            winner = true;
+        } //end if
 
         if (!winner) {
             std::cout << "Press enter for another turn";

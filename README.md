@@ -47,19 +47,40 @@ function main():
     create integer array horses with 5 elements
     set all horses to zero
 
+    create integer array winners with 5 elements
+    create integer variable numWinners
+        set numWinners to zero
+
     create boolean variable winner
     set winner to false
 
     while winner is false:
+
         for each horse from 0 to 4:
             advance(horse, horses)
 
         for each horse from 0 to 4:
             printLane(horse, horses)
 
+
+        for each horse from 0 to 4:
             if isWinner(horse, horses):
-                print "Horse horse WINS!!!"
-                set winner to true
+                winners[numWinners] = horse
+                increase numWinners by 1
+
+        if numWinners equals 1:
+            print "Horse winners[0] WINS!!!"
+            set winner to true
+
+        else if numWinners is greater than 1:
+            create random device rd
+            create integer distribution dist from 0 to numWinners - 1
+
+            create integer variable winningHorse
+            winningHorse = winners[dist(rd)]
+
+            print "Horse winningHorse WINS!!!"
+            set winner to true
 
         if winner is false:
             print "Press enter for another turn"
