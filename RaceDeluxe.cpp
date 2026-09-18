@@ -2,18 +2,46 @@
 #include <random>
 
 const int NUM_HORSES = 5;
-const int TRACK_LENGTH = 15;
+const int TRACK_LENGTH = 60;
 
 void advance(int horseNum, int* horses) {
-    //creates a tool for randomization
     std::random_device rd;
-    std::uniform_int_distribution<int> dist(0, 1);
+    std::uniform_int_distribution<int> dist0(0, 1); //1/2
+    std::uniform_int_distribution<int> dist1(0, 2); //1/3
+    std::uniform_int_distribution<int> dist2(0, 3); //1/4
+    std::uniform_int_distribution<int> dist3(0, 4); //1/5
+    std::uniform_int_distribution<int> dist4(0, 5); //1/6
 
-    int coin = dist(rd);
+    std::uniform_int_distribution<int> chooseDist(0, 4);
 
-    if (coin == 1) {
-        horses[horseNum]++;
+    int choice = chooseDist(rd);
+    int coin;
+    int distance; //keeps Expected Value of advance the same for all distX
+
+    if (choice == 0) {
+        coin = dist0(rd);
+        distance = 2;
     } //end if
+    else if (choice == 1) {
+        coin = dist1(rd);
+        distance = 3;
+    } //end else if
+    else if (choice == 2) {
+        coin = dist2(rd);
+        distance = 4;
+    }//end else if
+    else if (choice == 3) {
+        coin = dist3(rd);
+        distance = 5;
+    }//end else if
+    else {
+        coin = dist4(rd);
+        distance = 6;
+    }//end else if
+
+    if (coin == 0) {
+        horses[horseNum] += distance;
+    }//end if
 } // end advance
 
 
@@ -32,7 +60,7 @@ void printLane(int horseNum, int* horses) {
 
 
 bool isWinner(int horseNum, int* horses) {
-    if (horses[horseNum] == TRACK_LENGTH - 1) {
+    if (horses[horseNum] >= TRACK_LENGTH - 1) {
         return true;
     } //end if
     else {
